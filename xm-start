@@ -1,0 +1,190 @@
+#!/bin/bash
+clear
+#############################################
+echo "######################################"
+echo ""
+wan=$(dig +short myip.opendns.com @resolver1.opendns.com)
+echo "Your IP is: "$wan
+echo ""
+echo "######################################"
+echo ""
+#############################################
+sleep 0.3
+cd ./xm/Youtube
+OPTION1="-yt"
+OPTION2="-u"
+#############################################
+if [ $1 == $OPTION1 ]
+then
+prefix="https://www.youtube.com/watch?v="
+vURL=$(echo $2)
+vFILE=${2#$prefix}
+sleep 0.3
+#echo $prefix
+#echo $vURL
+echo $vFILE
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+echo "Starting Music Download from Youtube."
+echo $vURL""
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+echo ":=============== OPTION SELECTED: "$1 
+echo ":=============== Youtube Mode: TRUE"
+echo ":=============== Provider: youtube-dl"
+echo ":=============== Creating Directory: "$vFILE
+mkdir -p $vFILE
+cd $vFILE
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+ls
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+echo ":=============== Getting Youtube Link"
+echo ":=============== Video URL: "$vURL
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+youtube-dl $vURL -f mp4
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+ls
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+dlFile=$(ls | grep -i $vFILE".mp4")
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+echo "File Directory Tree:"
+echo "$dlFile"
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo "Renaming Youtube Video"
+cp "./$dlFile" "./$vFILE.mp4"
+rm "./$dlFile"
+echo ""
+sleep 0.3
+#############################################
+echo "######################################"
+#############################################
+sleep 0.3
+echo ""
+echo "Creating MP3 File"
+echo ""
+echo "######################################"
+echo ""
+ffmpeg -i "./$vFILE.mp4" -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 "./track-$vFILE.mp3"
+echo "######################################"
+echo ""
+echo "Removing $vFILE.mp4"
+rm "./$vFILE.mp4"
+sleep 0.3
+echo ""
+#############################################
+echo "######################################"
+echo ""
+ls
+echo ""
+echo "######################################"
+#############################################
+read -p "What is the artist and name of this file: " songInfo
+songmeta="../xmusic.meta"
+xdir=$(pwd)"/track-"$(echo $vFILE)".mp3"
+## The metafile for playlisting songs.
+songUrl="| -- VIDEO URL: $(echo $vURL)" # the v=XXXXXX
+songName="| -- SONG NAME: $(echo $songInfo)" # the songinfo you provide.
+songFile="| -- FILE PATH: $(echo $xdir)" ## the file path to the song.
+fileURI="| -- FILE URI: $(echo $xdir | md5sum)" ## the uri for the song.
+songURI="| -- SONG URI: $(echo $songUrl$songName$songFile)"
+sleep 0.2
+echo "######################################"
+echo ""
+echo $songURL
+echo $songName
+echo $songFile
+echo $fileURI
+echo $songURI
+echo ""
+sleep 0.2
+echo "######################################"
+echo ""
+echo "Adding Song Entry into Metafile..."
+echo ""
+sleep 0.2
+echo "######################################"
+echo ""
+xsum=$(echo -n $songURI | md5sum)
+echo "--SONG URI BEGIN-- $(echo $xsum)" >> "$songmeta"
+echo $songUrl >> "$songmeta"
+echo $songName >> "$songmeta"
+echo $songFile >> "$songmeta"
+echo $fileURI >> "$songmeta"
+echo $songURI >> "$songmeta"
+echo "" >> "$songmeta"
+echo "File URI=$(echo $xdir | md5sum)" >> "$songmeta"
+echo "PlayLink="$xdir >> "$songmeta"
+echo "--SONG URI END--" >> "$songmeta"
+sleep 0.2
+echo "######################################"
+echo ""
+playURL=$(cat "$songmeta" | grep -i "PlayLink=$(echo $xdir)")
+echo $playURL
+echo ""
+sleep 0.2
+echo "######################################"
+echo "-------------------------------------"
+echo "| Song :$(echo $xsum) "
+echo "| Video :$(echo $vURL) "
+echo "| MP3 File: $(echo $vFILE).mp3"
+echo "-------------------------------------"
+sleep 0.2
+echo "######################################"
+echo ""
+ls
+echo ""
+echo "######################################"
+sleep 0.2
+fi
+#neo
