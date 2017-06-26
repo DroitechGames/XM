@@ -55,7 +55,7 @@ sudo apt-get install ffmpeg
 and if your video is small in size, watch how fast it runs. 
 even on an old machine like the one the script has been made on.
 
-# Signiture Error in the APT/APTITUDE package.
+# Signature Error in the APT/APTITUDE package.
 Resolved by installing the PIP Package, 
 Make sure to remove with APT the older package of youtube-dl
 
