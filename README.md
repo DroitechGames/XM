@@ -4,7 +4,9 @@ XM is a Linux Script for downloading flash based videos and turning them into mp
 included with the script is three files.
 
 xm-start -yt link   |  get the video, makes the mp3.
+
 xm-clean            |  clean the libary and delete all content.
+
 xm-set              |  set the audio libary location and metafile data.
 
 What does this script do?
@@ -14,7 +16,9 @@ It downloads a flash video in MP4 format, Stores it, renames it, converts it to 
 It stores a single audio track in a nested folder called Youtube if you select the -yt option, you need to create this folder in your $USER directory. The script now does this for you autmatically. 
 
 you can use the script ./xm-set to set first time setup. this creates the folder in your user directory.
+
 you can use the script ./xm-clean to clean the libary and reset the metafile
+
 you can use the script ./xm-start -yt and the link
 
 Hope you like it.
